@@ -4,7 +4,7 @@
   name="ssm Maven Webapp Stage"
   id="myeclipse.1515216718059"
   context-root="/ssmStage"
-  j2ee-spec="1.7"
+  j2ee-spec="6.0"
   archive="ssm Maven Webapp Stage.war">
   <attributes>
     <attribute name="webrootdir" value="src/main/webapp" />

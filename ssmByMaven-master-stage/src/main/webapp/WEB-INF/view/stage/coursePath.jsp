@@ -482,9 +482,11 @@
         let link=document.querySelectorAll(".navItem");
         link[0].style.color="#000";
         link[0].style.background="#fff";
-        for(let i=0;i<link.length;i++){
+        let i;
+        let j;
+        for(i=0;i<link.length;i++){
             link[i].onclick=function(){
-                for(let j=0;j<link.length;j++){
+                for(j=0;j<link.length;j++){
                     link[j].style.color="#fff";
                     link[j].style.background="transparent";
                 }
