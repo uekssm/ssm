@@ -8,17 +8,24 @@ public class University {
 	private String name;
 	
 	private String summary;
+	
+	private int pageIndex;
+	
+	private int limit;
 
 	public University() {
 		super();
 	}
 
-	public University(int id, String num, String name, String summary) {
+	public University(int id, String num, String name, String summary,
+			int pageIndex, int limit) {
 		super();
 		this.id = id;
 		this.num = num;
 		this.name = name;
 		this.summary = summary;
+		this.pageIndex = pageIndex;
+		this.limit = limit;
 	}
 
 	public int getId() {
@@ -53,11 +60,27 @@ public class University {
 		this.summary = summary;
 	}
 
+	public int getPageIndex() {
+		return pageIndex;
+	}
+
+	public void setPageIndex(int pageIndex) {
+		this.pageIndex = pageIndex;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
 	@Override
 	public String toString() {
 		return "University [id=" + id + ", num=" + num + ", name=" + name
-				+ ", summary=" + summary + "]";
+				+ ", summary=" + summary + ", pageIndex=" + pageIndex
+				+ ", limit=" + limit + "]";
 	}
-	
-	
+
 }

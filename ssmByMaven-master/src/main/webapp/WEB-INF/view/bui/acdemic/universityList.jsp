@@ -44,21 +44,12 @@ function grant_role(value){
         <div class="row">
 
           <div class="control-group span8">
-            <label class="control-label">名称：</label>
+            <label class="control-label">学校名称：</label>
             <div class="controls">
-              <input type="text" class="control-text" name="universityname">
+              <input type="text" class="control-text" name="searchname">
             </div>
           </div>
-          <div class="control-group span8">
-            <label class="control-label">状态：</label>
-            <div class="controls">
-              <select name="status" class="control-text">
-              	<option value="0">请选择</option>
-                <option value="1">正常</option>
-                <option value="2">禁用</option>
-              </select>
-            </div>
-          </div>
+          
           <div class="span3 offset2">
             <button  type="button" id="btnSearch" class="button button-small button-primary">搜索</button>
           </div>
@@ -71,49 +62,35 @@ function grant_role(value){
 
   </div>
   <div id="content" class="hide">
-      <form id="J_Form" class="form-horizontal" action="<{:U('university/add')}>">
-        <input type="hidden" name="id">
+      <form id="J_Form" class="form-horizontal" action="<{:U('university/add')}>" enctype="multipart/form-data" >
+        <input type="hidden" name="id" value="">
         <div class="row">
           <div class="control-group span8">
-            <label class="control-label"><s>*</s>姓名</label>
+            <label class="control-label"><s>*</s>学校编号</label>
             <div class="controls">
-              <input name="universityname" type="text" data-rules="{required:true}" class="input-normal control-text">
+              <input name="num" type="text" data-rules="{required:true}" class="input-normal control-text">
             </div>
           </div>
           </div>
         <div class="row">
           <div class="control-group span8">
-            <label class="control-label"><s>*</s>密码</label>
+            <label class="control-label"><s>*</s>学校名称</label>
             <div class="controls">
-              <input name="password" type="password" data-rules="{required:true}" class="input-normal control-text">
+              <input name="name" type="text" data-rules="{required:true}" class="input-normal control-text">
             </div>
           </div>
         </div>
        <div class="row">
 	        	<div class="control-group span8">
-		        	<label class="control-label"><s>*</s>用户状态</label>
-		            <div class="controls">
-		              	<select  data-rules="{required:true}"  name="status" class="input-normal">
-			                <option value="">请选择</option>
-			                <option value="0">禁用</option>
-			                <option value="1">正常</option>
-		              	</select>
+		        	<label class="control-label">学校介绍</label>
+		            <div class="controls control-row4">
+		              	<textarea name="summary" class="input-large" type="text"></textarea>
 		            </div>
 	            </div>
         </div>
       </form>
     </div>
     
-	<!-- 绑定角色 id="J_Form_Bind_Role" class="form-horizontal" action="<{:U('university/bindRoles')}>" -->
-    <div id="contentForBindRole" class="hide">
-      <form id="J_Form_Bind_Role" class="form-horizontal">
-        <input type="hidden" name="id">
-        <foreach name="roles" item="role">
-			<input class="roleclass" type="checkbox" name="roles[]" value="{$role.id}" checked="true" />  {$role.name}<br>
-		</foreach>
-      </form>
-    </div>
-
 
   
   <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
@@ -189,20 +166,19 @@ function grant_role(value){
         		  return '';
               }else{
             	  editStr1 = '<span class="grid-command btn-edit" title="编辑">编辑</span>',
-            	  grantStr = '<span class="grid-command btn-grant" title="授权" onclick="grant_role(\''+value+'\')">绑定角色</span>',
                   delStr = '<span class="grid-command btn-del" title="删除">删除</span>';//页面操作不需要使用Search.createLink
-                return editStr1 + grantStr + delStr;
+                return editStr1 + delStr;
               }
           }}
         ],
       store = Search.createStore('${pageContext.request.contextPath }/university/getAllUniversity',{
         proxy : {
           save : { //也可以是一个字符串，那么增删改，都会往那么路径提交数据，同时附加参数saveType
-            addUrl : "{:U('Sysuniversity/add')}",
-            updateUrl : "{:U('Sysuniversity/update')}",
+            addUrl : "${pageContext.request.contextPath }/university/adduniversity",
+            updateUrl : "${pageContext.request.contextPath }/university/updateuniversity",
             bindRolesUrl : "{:U('Sysuniversity/bindRoles')}",
             grantUrl : "{:U('Sysuniversity/grant')}",
-            removeUrl : "{:U('Sysuniversity/delete')}"
+            removeUrl : "${pageContext.request.contextPath }/university/delete"
           },
           method : 'POST',
         },
@@ -241,7 +217,8 @@ function grant_role(value){
       grid = search.get('grid');
 
     function addFunction(){
-      var newData = {isNew : true}; //标志是新增加的记录
+      var newData = {isNew : true,id:0}; //标志是新增加的记录
+      
       editing.add(newData,'name'); //添加记录后，直接编辑
     }
 

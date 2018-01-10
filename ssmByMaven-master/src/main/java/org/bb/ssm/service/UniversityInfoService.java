@@ -1,8 +1,12 @@
 package org.bb.ssm.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.bb.ssm.model.University;
+import org.springframework.ui.Model;
 
 /**
  * Dao层是和数据库打交道的，Service层会封装具体的业务。有点抽象.. e.g. 用户管理系统
@@ -15,9 +19,13 @@ import org.bb.ssm.model.University;
  */
 public interface UniversityInfoService {
 
-	List<University> findAll();
 	
-	int deleteByPrimaryKey(Integer id);
+    
+	List<University> findAll(int limit, int pageIndex, String searchname);
+	
+	int totalCount(String searchname);// = (int) mapper.getUniversitysCount(); 
+	
+	int deleteByPrimaryKey(String[] ids);
 
 	int insert(University record);
 

@@ -1,20 +1,30 @@
 package org.bb.ssm.service.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.bb.ssm.mapper.UniversityInfoMapper;
+import org.bb.ssm.model.Page;
 import org.bb.ssm.model.University;
 import org.bb.ssm.service.UniversityInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 //可以消除xml中对bean的配置
 @Service
 // 此处使用spring的声明式事务，不在使用sqlsession和提交事务了
 @Transactional
 public class UniversityInfoServiceImpl implements UniversityInfoService {
 
+	public int totalCount(String searchname){
+		return (int) mapper.getUniversitysCount(searchname);
+		
+	}
+	
+    
 	@Resource
 	/**
 	 * @Resource的作用相当于@Autowired，只不过@Autowired按byType自动注入，
@@ -38,14 +48,13 @@ public class UniversityInfoServiceImpl implements UniversityInfoService {
 	 * 查询UniversityInfo表所有数据
 	 */
 	@Override
-	public List<University> findAll() {
-		List<University> list = mapper.findAll();
+	public List<University> findAll(int limit, int pageIndex,String searchname) {
+		List<University> list = mapper.findAll(limit,pageIndex,searchname);
 		return list;
 	}
 	
-	@Override
-	public int deleteByPrimaryKey(Integer id) {
-		return mapper.deleteByPrimaryKey(id);
+	public int deleteByPrimaryKey(String[] ids) {
+		return mapper.deleteByPrimaryKey(ids);
 	}
 
 	@Override
